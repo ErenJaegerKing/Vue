@@ -1,0 +1,39 @@
+# 忽略所有子目录中的 node_modules
+**/node_modules/
+
+# 忽略所有子目录中的编译输出目录
+**/dist/
+**/build/
+
+# 忽略所有子目录中的项目本地配置文件
+**/.env
+**/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
+**/.env.*.local
+
+# 忽略所有子目录中的编辑器配置文件
+**/.DS_Store
+**/Thumbs.db
+
+# 忽略所有子目录中的编译输出文件
+**/*.log
+**/npm-debug.log*
+**/yarn-error.log
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# 忽略所有子目录中的配置缓存文件
+**/.babelrc
+**/.eslintcache
+
+# 忽略所有子目录中的编译器生成的文件
+**/.idea
+**/.vscode
+**/*.suo
+**/*.ntvs*
+**/*.njsproj
+**/*.sln
+**/*.sw?
