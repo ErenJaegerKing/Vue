@@ -1,6 +1,6 @@
 <template>
   <img
-  class="avatar-img"
+  class="avatar-container"
     :src="url"
     :style="{
       width: size + 'px',

@@ -1,23 +1,30 @@
 <template>
   <div>
     <h1>App组件</h1>
-    <Icon type="kaixin" />
+    <Pager :total="total" :current="current" @pageChange="handlePageChange" />
   </div>
 </template>
 
 <script>
-import Icon from "./components/Icon.vue";
+import Pager from "./components/Pager";
 
 export default {
   components: {
-    Icon,
+    Pager,
+  },
+  data() {
+    return {
+      current: 20,
+      total: 302,
+    };
+  },
+  methods: {
+    handlePageChange(newPage) {
+      console.log(newPage);
+      this.current = newPage;
+    },
   },
 };
 </script>
 
-<style scoped>
-.iconfont {
-  font-size: 26px;
-  color: red;
-}
-</style>
+<style scoped></style>
