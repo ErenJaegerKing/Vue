@@ -8,6 +8,7 @@ const classMap = {
   kaixin: "icon-henkaixin",
   wode: "icon-wode",
 };
+export const type = Object.keys(classMap);
 export default {
   props: {
     type: {

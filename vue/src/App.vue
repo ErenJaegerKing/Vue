@@ -1,30 +1,24 @@
 <template>
-  <div>
-    <h1>App组件</h1>
-    <Pager :total="total" :current="current" @pageChange="handlePageChange" />
+  <div class="test-container">
+    <Empty />
   </div>
 </template>
 
 <script>
-import Pager from "./components/Pager";
-
+import Empty from "./components/Empty";
 export default {
   components: {
-    Pager,
-  },
-  data() {
-    return {
-      current: 20,
-      total: 302,
-    };
-  },
-  methods: {
-    handlePageChange(newPage) {
-      console.log(newPage);
-      this.current = newPage;
-    },
+    Empty,
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.test-container {
+  width: 500px;
+  height: 400px;
+  border: 2px solid;
+  margin: 0 auto;
+  position: relative;
+}
+</style>
