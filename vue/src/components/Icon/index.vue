@@ -4,9 +4,9 @@
 
 <script>
 const classMap = {
-  erweima: "icon-erweima",
-  kaixin: "icon-henkaixin",
-  wode: "icon-wode",
+  erweima: "icon-zhuye",
+  kaixin: "icon-guanyu",
+  wode: "icon-boke",
 };
 export const type = Object.keys(classMap);
 export default {
@@ -25,5 +25,5 @@ export default {
 </script>
 
 <style scoped>
-@import "//at.alicdn.com/t/c/font_4672488_avzilcvwso4.css";
+@import "//at.alicdn.com/t/c/font_4672488_lhu44p37o3m.css";
 </style>

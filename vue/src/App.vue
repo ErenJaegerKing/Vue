@@ -1,24 +1,18 @@
 <template>
-  <div class="test-container">
-    <Empty />
-  </div>
+  <Message>
+    
+  </Message>
 </template>
 
 <script>
-import Empty from "./components/Empty";
+import Message from "@/components/Message";
 export default {
   components: {
-    Empty,
-  },
-};
+    Message,
+  }
+}
 </script>
 
-<style scoped>
-.test-container {
-  width: 500px;
-  height: 400px;
-  border: 2px solid;
-  margin: 0 auto;
-  position: relative;
-}
+<style>
+
 </style>
