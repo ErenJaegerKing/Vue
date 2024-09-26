@@ -1,6 +1,6 @@
 <template>
   <nav class="menu-container">
-    <a 
+    <RouterLink
     v-for="item in items" 
     :key="item.link" 
     :href="item.link"
@@ -12,12 +12,13 @@
         <Icon type="item.icon" />
       </div>
       <span>{{ item.title }}</span>
-    </a>
+    </RouterLink>
   </nav>
 </template>
 
 <script>
 import Icon from "@/components/Icon";
+import { RouterLink } from "vue-router";
 export default {
   components: {
     Icon,

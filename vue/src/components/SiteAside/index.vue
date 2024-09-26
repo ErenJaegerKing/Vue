@@ -1,10 +1,6 @@
 <template>
   <div class="site-aside-container">
-    <div class="avatar">
-      <Avatar
-        url="https://drawingbed-686.pages.dev/myblog/202409241339167.png"
-      />
-    </div>
+    <Avatar url="http://mdrs.yuanjin.tech/img/20201130153821.png" />
     <h1 class="title">我是艾伦</h1>
     <Menu />
     <Contact />
@@ -36,7 +32,7 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
 }
-.avatar {
+.avatar-container {
   margin: 0 auto;
 }
 
