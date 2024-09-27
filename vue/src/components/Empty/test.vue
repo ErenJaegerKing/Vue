@@ -19,5 +19,6 @@ export default {
   height: 400px;
   border: 2px solid;
   margin: 0 auto;
+  position: relative;
 }
 </style>

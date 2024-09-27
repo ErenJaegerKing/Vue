@@ -1,31 +1,32 @@
 <template>
-    <div>
-      <h1>App组件</h1>
-      <Pager :total="total" :current="current" @pageChange="handlePageChange" />
-    </div>
-  </template>
-  
-  <script>
-  import Pager from "./index";
-  
-  export default {
-    components: {
-      Pager,
+  <div>
+    <Pager
+      :total="total"
+      :current="current"
+      @pageChange="handlePageChange($event)"
+    />
+  </div>
+</template>
+
+<script>
+import Pager from "./";
+export default {
+  components: {
+    Pager,
+  },
+  data() {
+    return {
+      current: 1,
+      total: 302,
+    };
+  },
+  methods: {
+    handlePageChange(newPage) {
+      this.current = newPage;
+      console.log("加载当前页数据");
     },
-    data() {
-      return {
-        current: 20,
-        total: 302,
-      };
-    },
-    methods: {
-      handlePageChange(newPage) {
-        console.log(newPage);
-        this.current = newPage;
-      },
-    },
-  };
-  </script>
-  
-  <style scoped></style>
-  
+  },
+};
+</script>
+
+<style scoped></style>

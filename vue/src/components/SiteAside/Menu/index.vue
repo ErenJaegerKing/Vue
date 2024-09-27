@@ -1,15 +1,15 @@
 <template>
   <nav class="menu-container">
     <RouterLink
-    v-for="item in items" 
-    :key="item.link" 
-    :href="item.link"
-    :class="{
-      selected: iselected(item),
-    }"
+      :exact="item.exact"
+      v-for="item in items"
+      :key="item.link"
+      :to="{ name: item.name }"
+      active-class="selected"
+      exact-active-class=""
     >
       <div class="icon">
-        <Icon type="item.icon" />
+        <Icon :type="item.icon" />
       </div>
       <span>{{ item.title }}</span>
     </RouterLink>
@@ -18,7 +18,6 @@
 
 <script>
 import Icon from "@/components/Icon";
-import { RouterLink } from "vue-router";
 export default {
   components: {
     Icon,
@@ -27,44 +26,37 @@ export default {
     return {
       items: [
         {
-          link: "/",
+          name: "Home",
           title: "首页",
           icon: "home",
+          exact: true,
         },
         {
-          link: "/blog",
+          name: "Blog",
           title: "文章",
           icon: "blog",
-          startWith: true
+          exact: false, // 激活状态是否要精确匹配
         },
         {
-          link: "/about",
+          name: "About",
           title: "关于我",
-          icon: "home",
+          icon: "about",
+          exact: true,
         },
         {
-          link: "/product",
+          name: "Project",
           title: "项目&效果",
           icon: "code",
+          exact: true,
         },
         {
-          link: "/message",
+          name: "Message",
           title: "留言板",
           icon: "chat",
+          exact: true,
         },
       ],
     };
-  },
-  methods:{
-    iselected(item) {
-      var link = item.link.toLowerCase(); // 菜单的链接地址
-      var curPathname = location.pathname.toLowerCase(); // 当前浏览器的访问路径
-      if (item.startWith) {
-        return curPathname.startsWith("link");
-      } else {
-        return  curPathname === link
-      }
-    },
   },
 };
 </script>

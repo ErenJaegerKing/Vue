@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SiteAside from "./components/SiteAside";
+import SiteAside from "./";
 import "@/styles/global.less";
 export default {
   components: {
@@ -16,9 +16,9 @@ export default {
 
 <style>
 .test-container {
-    width: 250px;
-    height: 600px;
-    border: 2px solid;
-    margin: 0 auto;
+  width: 250px;
+  height: 600px;
+  border: 2px solid;
+  margin: 0 auto;
 }
 </style>

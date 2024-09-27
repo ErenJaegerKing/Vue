@@ -5,21 +5,21 @@
 </template>
 
 <script>
-import Menu from "./components/Menu";
-import "@/styles/global.less"
+import Menu from "./";
+import "@/styles/global.less";
 export default {
-    components: {
-        Menu,
-    },
+  components: {
+    Menu,
+  },
 };
 </script>
 
 <style>
 .test-container {
-    width: 400px;
-    height: 600px;
-    border: 2px solid red;
-    background: #000;
-    margin: 0 auto;
+  width: 400px;
+  height: 600px;
+  border: 2px solid red;
+  background: #000;
+  margin: 0 auto;
 }
 </style>

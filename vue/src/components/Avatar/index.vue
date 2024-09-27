@@ -1,6 +1,6 @@
 <template>
   <img
-  class="avatar-container"
+    class="avatar-container"
     :src="url"
     :style="{
       width: size + 'px',
@@ -13,8 +13,8 @@
 export default {
   props: {
     url: {
-      type: String,
-      required: true,
+      type: String, // url属性必须是一个字符串
+      required: true, // 属性必传
     },
     size: {
       type: Number,
@@ -24,9 +24,11 @@ export default {
 };
 </script>
 
-<style>
-.avatar-img {
-   border-radius: 50%;
-   object-fit: cover;
+<style scoped>
+/* 带有作用域的样式 */
+.avatar-container {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 </style>

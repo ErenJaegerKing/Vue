@@ -22,7 +22,7 @@ const classMap = {
   empty: "iconempty",
   chat: "iconliuyan",
 };
-export const type = Object.keys(classMap);
+export const types = Object.keys(classMap);
 export default {
   props: {
     type: {
@@ -31,6 +31,7 @@ export default {
     },
   },
   computed: {
+    // 图标类样式
     fontClass() {
       return classMap[this.type];
     },
@@ -39,5 +40,9 @@ export default {
 </script>
 
 <style scoped>
-@import "//at.alicdn.com/t/c/font_4672488_lhu44p37o3m.css";
+@import "//at.alicdn.com/t/font_2164449_nalfgtq7il.css";
+.iconfont {
+  color: inherit;
+  font-size: inherit;
+}
 </style>
