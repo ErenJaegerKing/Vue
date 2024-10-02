@@ -1,14 +1,25 @@
 <template>
-  <div class="home-container" ref="container">
-    <ul class="carousel-container">
+  <div v-loading="isLoading"
+  class="home-container" ref="container" @wheel="handleWheel">
+    <ul
+      class="carousel-container"
+      :style="{
+        marginTop,
+      }"
+      @transitionend="handleTransitionEnd"
+    >
       <li v-for="item in banners" :key="item.id">
-        <Carouselitem />
+        <Carouselitem :carousel="item" />
       </li>
     </ul>
     <div v-show="index >= 1" @click="switchTo(index - 1)" class="icon icon-up">
       <Icon type="arrowUp" />
     </div>
-    <div v-show="index < banners.length - 1" @click="switchTo(index + 1)" class="icon icon-down">
+    <div
+      v-show="index < banners.length - 1"
+      @click="switchTo(index + 1)"
+      class="icon icon-down"
+    >
       <Icon type="arrowDown" />
     </div>
     <ul class="indicator">
@@ -35,6 +46,7 @@
   ul {
     margin: 0;
     list-style: none;
+    padding: 0;
   }
   .icon {
     .self-center();
@@ -80,7 +92,6 @@
     width: 100%;
     height: 100%;
     transition: 500ms;
-    padding: 0px;
     li {
       width: 100%;
       height: 100%;
@@ -120,16 +131,23 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       banners: [],
       index: 1, //当前显示的是第几张轮播图
       containerHeight: 0, // 整个容器的高度
+      switching: false, // 是否正在切换中
     };
   },
   async created() {
     this.banners = await getBanners();
+    this.isLoading = false;
   },
   mounted() {
     this.containerHeight = this.$refs.container.clientHeight;
+    window.addEventListener("resize", this.handleResize);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   },
   computed: {
     marginTop() {
@@ -140,6 +158,26 @@ export default {
     // 切换轮播图
     switchTo(i) {
       this.index = i;
+    },
+    handleWheel(e) {
+      if (this.switching) {
+        return;
+      }
+      if (e.deltaY < -5 && this.index > 0) {
+        // 往上滚动
+        this.switching = true;
+        this.index--;
+      } else if (e.deltaY > 5 && this.index < this.banners.length - 1) {
+        // 往下滚动
+        this.switching = true;
+        this.index++;
+      }
+    },
+    handleTransitionEnd() {
+      this.switching = false;
+    },
+    handleResize() {
+      this.containerHeight = this.$refs.container.clientHeight;
     },
   },
 };

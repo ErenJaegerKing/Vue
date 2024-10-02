@@ -7,7 +7,9 @@ import router from "./router";
 import showMessage from "./utils/showMessage";
 Vue.prototype.$showMessage = showMessage;
 
-import "./api/banner";
+// 注册全局指令
+import vLoading from "./directives/loading";
+Vue.directive("loading",vLoading);
 
 new Vue({
   router,
