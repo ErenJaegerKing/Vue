@@ -1,14 +1,10 @@
 <template>
-  <div class="blog-list-container">
+  <div class="blog-list-container" ref="container" v-loading="isLoading">
     <ul>
       <li v-for="item in data.rows" :key="item.id">
         <div class="thumb" v-if="item.thumb">
           <a href="">
-            <img
-              :src="item.thumb"
-              :alt="item.title"
-              :title="item.title "
-            />
+            <img :src="item.thumb" :alt="item.title" :title="item.title" />
           </a>
         </div>
         <div class="main">
@@ -28,24 +24,76 @@
       </li>
     </ul>
     <!-- 分页放到这里 -->
-    <Pager />
+    <Pager
+      v-if="data.total"
+      :current="routeInfo.page"
+      :total="data.total"
+      :limit="routeInfo.limit"
+      :visibleNumber="10"
+      @pageChange="handlePageChange"
+    />
   </div>
 </template>
 
 <script>
 import Pager from "@/components/Pager";
 import fetchData from "@/mixins/fetchData.js";
-import {getBlogs} from "@/api/blog.js";
-import {formatDate} from "@/utils"
+import { getBlogs } from "@/api/blog.js";
+import { formatDate } from "@/utils";
 export default {
   mixins: [fetchData({})],
   components: {
     Pager,
   },
+  computed: {
+    routeInfo() {
+      const categoryId = +this.$route.params.categoryId || -1;
+      const page = +this.$route.query.page || 1;
+      const limit = +this.$route.query.limit || 10;
+      return {
+        categoryId,
+        page,
+        limit,
+      };
+    },
+  },
   methods: {
     formatDate,
     async fetchData() {
-      return await getBlogs();
+      return await getBlogs(
+        this.routeInfo.page,
+        this.routeInfo.limit,
+        this.routeInfo.categoryId
+      );
+    },
+    handlePageChange(newPage) {
+      const query = {
+        page: newPage,
+        limit: this.routeInfo.limit,
+      };
+      if (this.routeInfo.categoryId === -1) {
+        //当前没有分类
+        this.$router.push({
+          name: "Blog",
+          query,
+        });
+      } else {
+        this.$router.push({
+          name: "CategoryBlog",
+          query,
+          params: {
+            categoryId: this.routeInfo.categoryId,
+          },
+        });
+      }
+    },
+  },
+  watch: {
+    async $route() {
+      this.isLoading = true;
+      this.$refs.container.scrollTop = 0;
+      this.data = await this.fetchData();
+      this.isLoading = false;
     },
   },
 };
@@ -57,10 +105,11 @@ export default {
   line-height: 1.7;
   position: relative;
   padding: 20px;
-  overflow-y: auto;
+  overflow-y: scroll;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  scroll-behavior: smooth;
   ul {
     list-style: none;
     margin: 0;
