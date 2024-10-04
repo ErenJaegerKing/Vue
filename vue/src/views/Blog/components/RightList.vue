@@ -3,7 +3,7 @@
     <li v-for="(item, i) in list" :key="i">
       <span @click="handleClick(item)" :class="{ active: item.isSelect }">{{ item.name }}</span>
       <!-- 显示当前组件 -->
-      <RightList :list="item.children" />
+      <RightList :list="item.children" @select="handleClick"/>
     </li>
   </ul>
 </template>
@@ -18,7 +18,7 @@ export default {
     },
   },
   methods: {
-    handleClick() {
+    handleClick(item) {
         this.$emit("select",item)
     },
   },
