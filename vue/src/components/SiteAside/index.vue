@@ -1,11 +1,11 @@
 <template>
   <div class="site-aside-container">
     <Avatar url="http://mdrs.yuanjin.tech/FgMwAPYq17So9nwVH44ltDHo7u3c" />
-    <h1 class="title">我的小窝</h1>
+    <h1 class="title">第一个Vue的学习</h1>
     <Menu />
     <Contact />
     <p class="footer">
-      黑ICP备17001719号
+      未进行备案，哈哈
     </p>
   </div>
 </template>
