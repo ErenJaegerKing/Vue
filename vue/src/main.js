@@ -12,7 +12,6 @@ Vue.prototype.$showMessage = showMessage;
 
 // 注册全局指令
 import vLoading from "./directives/loading";
-import BlogList from "./views/Blog/components/BlogList.vue";
 Vue.directive("loading", vLoading);
 
 new Vue({
@@ -21,24 +20,4 @@ new Vue({
   render: (h) => h(App),
 }).$mount("#app");
 
-//test
 
-// import * as blogApi from "./api/blog";
-
-// blogApi.getBlog("assd").then((r) => {
-//   console.log(r);
-// });
-
-// blogApi
-//   .postComment({
-//     nickName: "name",
-//     content: "评论内容",
-//     blogId: "123",
-//   })
-//   .then((r) => {
-//     console.log(r);
-//   });
-
-// blogApi.getComments("123123").then((r) => {
-//   console.log(r);
-// });
