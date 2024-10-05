@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="main-container" v-loading="isLoading">
+    <div ref="mainContainer" class="main-container" v-loading="isLoading">
       <BlogDetail :blog="data" v-if="data" />
       <BlogComment v-if="!isLoading" />
     </div>
@@ -19,6 +19,7 @@ import Layout from "@/components/Layout";
 import BlogDetail from "./components/BlogDetail";
 import BlogTOC from "./components/BlogTOC";
 import BlogComment from "./components/BlogComment";
+
 export default {
   components: {
     Layout,
@@ -31,6 +32,22 @@ export default {
     async fetchData() {
       return await getBlog(this.$route.params.id);
     },
+    handleScroll() {
+      this.$bus.$emit("mainScroll", this.$refs.mainContainer);
+    },
+  },
+  mounted() {
+    this.$refs.mainContainer.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    this.$refs.mainContainer.removeEventListener("scroll", this.handleScroll);
+  },
+  updated() {
+    const hash = location.hash;
+    location.hash = "";
+    setTimeout(() => {
+      location.hash = hash;
+    }, 50);
   },
 };
 </script>

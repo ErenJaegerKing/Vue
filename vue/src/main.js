@@ -8,6 +8,7 @@ import "./styles/global.less";
 // 导入路由规则
 import router from "./router";
 import showMessage from "./utils/showMessage";
+import "./eventBus.js";
 Vue.prototype.$showMessage = showMessage;
 
 // 注册全局指令
