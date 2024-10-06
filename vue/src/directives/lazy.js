@@ -2,13 +2,14 @@ import eventBus from "@/eventBus";
 import { debounce } from "@/utils";
 import defaultGit from "@/assets/default.gif";
 
-const imgs = [];
+let imgs = [];
 
 function setImage(img) {
   img.dom.src = defaultGit; //先暂时使用默认图片
   // 处理图片
-  // 该图片是否在视口范围内
+  // 该图片是否在视口范围内 获取整个网页内容区的高度
   const clientHeight = document.documentElement.clientHeight;
+  // 返回元素的大小及其相对于视口的位置
   const rect = img.dom.getBoundingClientRect();
   const height = rect.height || 100;
   if (rect.top >= -height && rect.top <= clientHeight) {
@@ -47,7 +48,8 @@ export default {
     //立即处理它
     setImage(img);
   },
-  unbind(el, bindings) {
+  // 移除与el相对应的图像对象 元素消失的时间点开始运行
+  unbind(el) {
     imgs = imgs.filter((img) => img.dom !== el);
   },
 };
