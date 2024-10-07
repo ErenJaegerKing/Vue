@@ -9,18 +9,19 @@ import "./styles/global.less";
 import router from "./router";
 import showMessage from "./utils/showMessage";
 import "./eventBus.js";
+import store from "./store";
+store.dispatch("setting/fetchSetting");
 Vue.prototype.$showMessage = showMessage;
 
 // 注册全局指令
 import vLoading from "./directives/loading";
 import vLazy from "./directives/lazy";
 Vue.directive("loading", vLoading);
-Vue.directive("lazy",vLazy);
+Vue.directive("lazy", vLazy);
 
 new Vue({
   // 路由规则注册
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");
-
-

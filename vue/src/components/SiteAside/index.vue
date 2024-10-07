@@ -1,11 +1,13 @@
 <template>
   <div class="site-aside-container">
-    <Avatar url="http://mdrs.yuanjin.tech/FgMwAPYq17So9nwVH44ltDHo7u3c" />
-    <h1 class="title">第一个Vue的学习</h1>
+    <template v-if="data">
+      <Avatar :url="data && data.avatar" />
+      <h1 class="title">{{ data.siteTitle }}</h1>
+    </template>
     <Menu />
-    <Contact />
-    <p class="footer">
-      未进行备案，哈哈
+    <Contact v-if="data"/>
+    <p v-if="data" class="footer">
+      {{ data.icp }}
     </p>
   </div>
 </template>
@@ -14,12 +16,14 @@
 import Avatar from "@/components/Avatar";
 import Menu from "./Menu";
 import Contact from "./Contact";
+import { mapState } from "vuex";
 export default {
   components: {
     Avatar,
     Menu,
     Contact,
   },
+  computed: mapState("setting", ["data"]),
 };
 </script>
 
