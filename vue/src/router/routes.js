@@ -1,5 +1,6 @@
 import "nprogress/nprogress.css";
 import { start, done, configure } from "nprogress";
+import NotFound from "@/views/NotFound";
 // 增加一个加载进度条
 configure({
   trickleSpeed: 12,
@@ -97,4 +98,9 @@ export default [
       title: "留言板",
     },
   },
+  {
+    name:"NotFound",
+    path:"*",
+    component:NotFound,
+  }
 ];
