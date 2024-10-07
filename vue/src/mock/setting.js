@@ -4,7 +4,7 @@ Mock.mock("/api/setting", "get", {
   msg: "",
   data: {
     avatar: "http://www.duyiedu.com/source/img/logo.png",
-    siteTitle: "yaoyu",
+    siteTitle: "个人",
     github: "https://github.com/ErenJaegerKing",
     qq: "1252505184",
     qqQrCode:
