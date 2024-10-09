@@ -80,7 +80,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-        >Login</el-button
+        >登录</el-button
       >
 
       <div class="tips">
@@ -184,16 +184,32 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
+
+          if (this.loginForm.checked) {
+            this.loginForm.remember = 7;
+          }
+
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
               this.$router.push({ path: this.redirect || "/" });
               this.loading = false;
             })
-            .catch(() => {
+            .catch((res) => {
+              // this.loading = false;
+              if (typeof res === "string") {
+                // 验证码错误
+                this.$message.error("验证码错误");
+              } else {
+                this.$message.error("账号密码错误");
+              }
+              // 接下来需要重新请求二维码
+              this.getCaptchaFunc();
               this.loading = false;
+              this.loginForm.captcha = '';
             });
         } else {
+          // 表单字段没有验证通过
           console.log("error submit!!");
           return false;
         }
