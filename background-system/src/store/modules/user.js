@@ -11,9 +11,9 @@ const getDefaultState = () => {
 const state = getDefaultState();
 
 const mutations = {
-  // RESET_STATE: (state) => {
-  //   Object.assign(state, getDefaultState());
-  // },
+  RESET_STATE: (state) => {
+    Object.assign(state, getDefaultState());
+  },
   // SET_TOKEN: (state, token) => {
   //   state.token = token;
   // },
@@ -31,8 +31,6 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    console.log("3", userInfo);
-
     return new Promise((resolve, reject) => {
       loginApi(userInfo)
         .then((res) => {
@@ -64,42 +62,61 @@ const actions = {
     // })
   },
 
-  // get user info
+  // 恢复登录状态
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token)
-        .then((response) => {
-          const { data } = response;
+      getInfo().then((res) => {
 
-          if (!data) {
-            return reject("Verification failed, please Login again.");
+        if (typeof res === "string") {
+          // 未登录，或者Token已经过期
+          res = JSON.parse(res);
+          if (res.code === 401) {
+            reject(res.msg);
           }
+        } else {
+          // 说明这个token是OK的，将用户信息放入仓库,返回用户信息
+          commit("SET_USER", res.data);
+          resolve();
+        }
+      });
 
-          const { name, avatar } = data;
+      // getInfo(state.token)
+      //   .then((response) => {
+      //     const { data } = response;
 
-          commit("SET_NAME", name);
-          commit("SET_AVATAR", avatar);
-          resolve(data);
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      //     if (!data) {
+      //       return reject("Verification failed, please Login again.");
+      //     }
+
+      //     const { name, avatar } = data;
+
+      //     commit("SET_NAME", name);
+      //     commit("SET_AVATAR", avatar);
+      //     resolve(data);
+      //   })
+      //   .catch((error) => {
+      //     reject(error);
+      //   });
     });
   },
 
-  // user logout
+  // 登出
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token)
-        .then(() => {
-          removeToken(); // must remove  token  first
-          resetRouter();
-          commit("RESET_STATE");
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      removeToken(); // must remove  token  first
+      resetRouter();
+      commit("RESET_STATE");
+      resolve();
+      // logout(state.token)
+      //   .then(() => {
+      //     removeToken(); // must remove  token  first
+      //     resetRouter();
+      //     commit("RESET_STATE");
+      //     resolve();
+      //   })
+      //   .catch((error) => {
+      //     reject(error);
+      //   });
     });
   },
 
