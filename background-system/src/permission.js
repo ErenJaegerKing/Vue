@@ -62,3 +62,4 @@ router.afterEach(() => {
   // finish progress bar
   NProgress.done()
 })
+

@@ -28,3 +28,4 @@ describe('Utils:formatTime', () => {
     expect(formatTime(d, '{y}/{m}/{d} {h}-{i}')).toBe('2018/07/13 17-54')
   })
 })
+

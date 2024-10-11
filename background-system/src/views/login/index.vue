@@ -18,7 +18,7 @@
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
+          ref="loginId"
           v-model="loginForm.loginId"
           placeholder="请输入管理员账号"
           name="loginId"
@@ -28,7 +28,6 @@
         />
       </el-form-item>
 
-      <!-- 管理员密码 -->
       <el-form-item prop="loginPwd">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -67,11 +66,15 @@
             auto-complete="on"
           />
         </el-form-item>
-        <div class="captchaImg" v-html="svg" @click="getCaptchaFunc"></div>
+        <div
+          class="captchaImg"
+          v-html="svg"
+          @click="getCaptchaFunc"
+        ></div>
       </div>
 
       <!-- 7 天内免登录 -->
-      <div style="margin-bottom: 15px; margin-left: 4px">
+      <div style="margin-bottom:15px">
         <el-checkbox v-model="loginForm.checked">7 天内免登录</el-checkbox>
       </div>
 
@@ -82,18 +85,13 @@
         @click.native.prevent="handleLogin"
         >登录</el-button
       >
-
-      <div class="tips">
-        <span style="margin-right: 20px">username: admin</span>
-        <span> password: any</span>
-      </div>
     </el-form>
   </div>
 </template>
 
 <script>
 import { validUsername } from "@/utils/validate";
-import { getCaptcha } from "@/api/captcha.js";
+import {getCaptcha} from '@/api/captcha.js'
 export default {
   name: "Login",
   data() {
@@ -111,49 +109,39 @@ export default {
         callback();
       }
     };
+
     // 密码的验证
-    const checkPassword = (rule, value, callback) => {
+    const checkPassword = (rule, value, callback) =>{
       const reg = /abcd/;
-      if (reg.test(value)) {
-        callback();
+      if(reg.test(value)){
+        callback(); // 验证通过
       } else {
-        callback(new Error("密码不符合要求"));
+        callback(new Error('密码不符合XXX要求'));
       }
-    };
+    }
+
     return {
-      svg: "",
-      loginForm: {
-        loginId: "",
-        loginPwd: "",
-        captcha: "",
-        checked: true,
+      svg : '',
+      loginForm : {
+        loginId : '',
+        loginPwd : '',
+        captcha : '',
+        checked : true,
       },
-      loginRules: {
-        // 在这里书写规则
-        loginId: [
-          {
-            required: true,
-            trigger: "blur",
-            message: "请输入管理员账号",
-          },
-        ],
-        loginPwd: [
-          {
-            required: true,
-            trigger: "blur",
-            message: "请输入管理员密码",
-          },
-        ],
-        captcha: [
-          {
-            required: true,
-            trigger: "blur",
-            message: "请输入验证码",
-          },
-        ],
+      loginRules : {
+        // 在这里书写各个字段的验证规则
+        loginId : [{
+          required : true, trigger : 'blur', message : '请输入管理员账号'
+        }],
+        loginPwd : [{
+          required : true, trigger : 'blur', message : '请输入管理员密码'
+        }],
+        captcha : [{
+          required : true, trigger : 'blur', message : '请输入验证码'
+        }]
       },
-      passwordType: "password",
-      loading: false,
+      passwordType : 'password',
+      loading : false
     };
   },
   watch: {
@@ -169,6 +157,11 @@ export default {
     this.getCaptchaFunc();
   },
   methods: {
+    getCaptchaFunc(){
+      getCaptcha().then(res=>{
+        this.svg = res;
+      })
+    },
     showPwd() {
       if (this.passwordType === "password") {
         this.passwordType = "";
@@ -182,43 +175,22 @@ export default {
     // 登录相关的方法
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.loading = true;
-
-          if (this.loginForm.checked) {
-            this.loginForm.remember = 7;
-          }
-
-          this.$store
-            .dispatch("user/login", this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || "/" });
-              this.loading = false;
-            })
-            .catch((res) => {
-              // this.loading = false;
-              if (typeof res === "string") {
-                // 验证码错误
-                this.$message.error("验证码错误");
-              } else {
-                this.$message.error("账号密码错误");
-              }
-              // 接下来需要重新请求二维码
-              this.getCaptchaFunc();
-              this.loading = false;
-              this.loginForm.captcha = '';
-            });
-        } else {
-          // 表单字段没有验证通过
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    // 获取验证码
-    getCaptchaFunc() {
-      getCaptcha().then((res) => {
-        this.svg = res;
+        console.log(valid);
+        // if (valid) {
+        //   this.loading = true;
+        //   this.$store
+        //     .dispatch("user/login", this.loginForm)
+        //     .then(() => {
+        //       this.$router.push({ path: this.redirect || "/" });
+        //       this.loading = false;
+        //     })
+        //     .catch(() => {
+        //       this.loading = false;
+        //     });
+        // } else {
+        //   console.log("error submit!!");
+        //   return false;
+        // }
       });
     },
   },
@@ -335,19 +307,17 @@ $light_gray: #eee;
   }
 }
 
-.captchaInputer {
+.captchaInputer{
   width: 70%;
 }
-
-.captchaContainer {
-  // 弹性盒子，在同一线上
+.captchaContainer{
   display: flex;
 }
-
-.captchaImg {
-  margin-top: 3px;
-  margin-left: 4px;
+.captchaImg{
   width: 150px;
   height: 50px;
+  margin-left: 5px;
 }
+
 </style>
+

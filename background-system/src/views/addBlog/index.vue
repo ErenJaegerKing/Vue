@@ -1,15 +1,15 @@
 <template>
-  <div>
-    添加文章
-  </div>
+    <div>
+        添加文章
+    </div>
 </template>
 
 <script>
-export default {
-
-}
+    export default {
+        
+    }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

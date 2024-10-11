@@ -20,3 +20,4 @@ describe('SvgIcon.vue', () => {
     expect(wrapper.classes().includes('test')).toBe(true)
   })
 })
+

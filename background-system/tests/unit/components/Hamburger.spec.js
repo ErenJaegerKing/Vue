@@ -16,3 +16,4 @@ describe('Hamburger.vue', () => {
     expect(wrapper.contains('.is-active')).toBe(false)
   })
 })
+

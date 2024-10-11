@@ -1,15 +1,15 @@
 <template>
-  <div>
-     文章类型
-  </div>
+    <div>
+        文章类型
+    </div>
 </template>
 
 <script>
-export default {
-
-}
+    export default {
+        
+    }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

@@ -96,3 +96,4 @@ describe('Breadcrumb.vue', () => {
     expect(redirectBreadcrumb.contains('a')).toBe(false)
   })
 })
+
