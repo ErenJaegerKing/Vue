@@ -5,7 +5,8 @@ class AdminService extends Service {
   async login({loginId, loginPwd}) {
     return await this.ctx.model.Admin.findOne({
       loginId,
-      loginPwd: md5(loginPwd),
+      // loginPwd: md5(loginPwd), e10adc3949ba59abbe56e057f20f883e
+      loginPwd: loginPwd,
     });
   }
 
