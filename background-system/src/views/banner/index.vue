@@ -2,12 +2,12 @@
   <div class="app-container">
     <!-- 数据表格 -->
     <el-table :data="data" style="width: 100%" border>
-      <el-table-column prop="date" label="序号" width="60">
+      <el-table-column prop="date" label="序号" width="60" align="center">
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="标题" width="150">
+      <el-table-column prop="title" label="标题" width="150" align="center">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
