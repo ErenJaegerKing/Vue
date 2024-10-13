@@ -67,7 +67,7 @@
               icon="el-icon-edit"
               circle
               size="mini"
-              @click="editBannerHandle(scope.row)"
+              @click="editBlogHandle(scope.row)"
             ></el-button>
           </el-tooltip>
 
@@ -175,6 +175,10 @@ export default {
           });
         });
     },
+    // 编辑文章
+    editBlogHandle(blogInfo) {
+      this.$router.push(`/editBlog/${blogInfo.id}`);
+    },
     // 分页相关事件
     sizeChangeHandle(pagerNum) {
       this.eachPage = parseInt(pagerNum);
@@ -186,10 +190,10 @@ export default {
       this.fetchData();
     },
     prevClickHandle() {
-        this.currentPage -= 1;
+      this.currentPage -= 1;
     },
     nextClickHandle() {
-        this.currentPage += 1;
+      this.currentPage += 1;
     },
   },
 };

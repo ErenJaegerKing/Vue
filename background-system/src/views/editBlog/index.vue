@@ -23,6 +23,7 @@
       v-model="form.select"
       slot="prepend"
       placeholder="请选择文章分类"
+      @change="changeHandle"
     >
       <el-option
         v-for="item in blogType"
@@ -31,13 +32,13 @@
         :value="item.id"
       ></el-option>
     </el-select>
-    <!-- 发布文章 -->
+    <!-- 确认修改 -->
     <div>
       <el-button
         type="primary"
         style="margin-top: 15px"
-        @click="addArticleHandle"
-        >发布文章</el-button
+        @click="editArticleHandle"
+        >确认修改</el-button
       >
     </div>
   </div>
@@ -48,10 +49,11 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/vue-editor";
 import upload from "@/components/upload";
 import { getBlogType } from "@/api/blogType";
-import { addBlog } from "@/api/blog";
+import { editBlog, findOneBlog } from "@/api/blog";
 export default {
   data() {
     return {
+      id: null, // 存储传递过来的id
       form: {
         title: "", // 文章标题
         editorText: "", // 用户编辑的内容
@@ -63,8 +65,17 @@ export default {
     };
   },
   created() {
+    // 一进来就获取分类的数据
     getBlogType().then(({ data }) => {
       this.blogType = data;
+    });
+    // 一进来就根据传进来的id获取这篇文章的内容，回填到表单
+    this.id = this.$route.params.id;
+    findOneBlog(this.id).then(({ data }) => {
+      // 将内容回填到表单里面
+      this.form = data;
+      this.form.select = data.category === null ? "" : data.category.id;
+      this.$refs.toastuiEditor.invoke("setHTML", data.htmlContent);
     });
   },
   components: {
@@ -72,7 +83,7 @@ export default {
     upload,
   },
   methods: {
-    addArticleHandle() {
+    editArticleHandle() {
       // 添加文章的业务逻辑1.获取表单内容 2.发送请求
       let html = this.$refs.toastuiEditor.invoke("getHTML");
       let markdown = this.$refs.toastuiEditor.invoke("getMarkdown");
@@ -90,13 +101,16 @@ export default {
       };
       // 提交给服务器
       if (obj.title && obj.description && obj.htmlContent && obj.categoryId) {
-        addBlog(obj).then(() => {
+        editBlog({ id: this.form.id, data: obj }).then(() => {
           this.$router.push("/blogList"); // 跳转到文章列表
-          this.$message.success("文章添加成功");
+          this.$message.success("文章修改成功");
         });
       } else {
         this.$message.error("请填写所有内容");
       }
+    },
+    changeHandle() {
+      this.$forceUpdate();
     },
   },
 };
