@@ -1,6 +1,6 @@
 // 入口文件
 // 导入Mock
-import "./mock";
+// import "./mock";
 import Vue from "vue";
 import App from "./App.vue";
 // 导入全局样式
