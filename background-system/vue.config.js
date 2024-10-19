@@ -43,6 +43,9 @@ module.exports = {
       "/api": {
         target: "http://127.0.0.1:7001",
       },
+      "/static": {
+        target: "http://127.0.0.1:7001",
+      },
     },
     // before: require('./mock/mock-server.js') 这行代码标识发送的请求使用 mock-server 来进行处理
   },
