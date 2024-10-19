@@ -17,6 +17,15 @@ export function getInfo(token) {
   })
 }
 
+// 修改用户
+export function setUser(data){
+  return request({
+    url : '/api/admin',
+    method : 'PUT',
+    data
+  })
+}
+
 export function logout() {
   return request({
     url: '/vue-admin-template/user/logout',

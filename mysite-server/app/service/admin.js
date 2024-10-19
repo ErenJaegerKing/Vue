@@ -25,10 +25,10 @@ class AdminService extends Service {
       if (!oldLoginPwd) {
         this.throw(406, '旧密码不可为空');
       }
-      if (md5(oldLoginPwd) !== curUser.loginPwd) {
+      if (oldLoginPwd !== curUser.loginPwd) {
         this.throw(406, '旧密码不正确');
       }
-      curUser.loginPwd = md5(loginPwd);
+      curUser.loginPwd = loginPwd;
     }
     await curUser.save();
     return curUser;
