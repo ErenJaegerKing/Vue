@@ -1,39 +1,47 @@
-# 忽略所有子目录中的 node_modules
-**/node_modules/
+# 忽略操作系统生成的文件
+.DS_Store
+Thumbs.db
 
-# 忽略所有子目录中的编译输出目录
-**/dist/
-**/build/
+# 忽略日志文件
+*.log
 
-# 忽略所有子目录中的项目本地配置文件
-**/.env
-**/.env.local
-**/.env.development
-**/.env.test
-**/.env.production
-**/.env.*.local
+# 忽略临时文件
+*.tmp
+*.swp
+*.swo
 
-# 忽略所有子目录中的编辑器配置文件
-**/.DS_Store
-**/Thumbs.db
+# 忽略 node_modules 目录
+node_modules/
 
-# 忽略所有子目录中的编译输出文件
-**/*.log
-**/npm-debug.log*
-**/yarn-error.log
-**/yarn-debug.log*
-**/yarn-error.log*
-**/pnpm-debug.log*
+# 忽略构建输出
+dist/
+build/
+out/
 
-# 忽略所有子目录中的配置缓存文件
-**/.babelrc
-**/.eslintcache
+# 忽略环境配置文件
+.env
+.env.local
+.env.*.local
 
-# 忽略所有子目录中的编译器生成的文件
-**/.idea
-**/.vscode
-**/*.suo
-**/*.ntvs*
-**/*.njsproj
-**/*.sln
-**/*.sw?
+# 忽略依赖安装锁文件（可选，通常需要提交）
+# 如果不需要版本锁定，可以忽略这几行
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# 忽略 IDE 和编辑器生成的文件
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Python 虚拟环境和缓存文件
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# 忽略 Mac/Linux 系统文件
+.sass-cache/
+.cache/
